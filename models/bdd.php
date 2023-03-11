@@ -31,13 +31,9 @@ class bdd extends Action
     // Ouverture de connextion sur la base de données secondaire
     protected function open()
     {
-        /* var_dump($this->host);
-        die(); */
-        $this->setDataBaseInfo();
-
         try {
             $this->dns = 'mysql:host=' . $this->host . ';dbname=' . $this->dbName;
-            //print_r($this->dns);
+           // print_r($this->dns);
             $option = array(
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO:: FETCH_ASSOC
             );
@@ -81,19 +77,14 @@ class bdd extends Action
         return $this->connexion->rollBack();
     }
 
-    public function setDataBaseName($_REQUEST_BDENAME)
-    {
-        $this->_REQUEST_BDENAME = $_REQUEST_BDENAME;
-        // print_r($this -> _REQUEST_BDENAME);
-    }
-
-    public function prepareQuery()
+       public function prepareQuery()
     {
         return $this->connexion->prepare($this->Query);
     }
 
     public function errorMsg(PDOException $error){
               $Msg = 'ERREUR PDO dans ' . $error->getFile() . ' Ligne. ' . $error->getLine() . ' : ' . $error->getMessage();
-             return $Msg;
+              die($Msg);
+        return $Msg;
     }
 }

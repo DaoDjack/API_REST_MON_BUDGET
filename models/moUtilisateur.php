@@ -4,9 +4,8 @@ class moUtilisateur extends bdd
 {
     public function crudUtilisateur(Utilisateur $utilisateur)
     {
-
         $this->Query = 'CALL ps_Utilisateur(
-                                        :utlisateurId,
+                                        :utilisateurId,
                                         :nom,
                                         :prenom,
                                         :noDeTelephone,
@@ -18,9 +17,9 @@ class moUtilisateur extends bdd
             $this->beginTrans();
 
             $PDOprepare = $this->prepareQuery();
-           //  print_r($utilisateur);
+
             $PDOprepare->execute(array(
-                    'utlisateurId' => $utilisateur->getUtilisateurId(),
+                    'utilisateurId' => $utilisateur->getUtilisateurId(),
                     'nom' => $utilisateur->getNom(),
                     'prenom' => $utilisateur->getPrenom(),
                     'noDeTelephone' => $utilisateur->getNoDeTelephone(),
@@ -28,6 +27,7 @@ class moUtilisateur extends bdd
                     'action' => $utilisateur->getAction()
                 )
             );
+
             switch ($utilisateur->getAction()) {
                 case $this::$SelectAll :
                     $this->Response = $PDOprepare->fetchAll();
@@ -35,9 +35,9 @@ class moUtilisateur extends bdd
                 case $this::$SelectById :
                     $this->Response = $PDOprepare->fetch();
                     break;
-                case $this::$DeleteById:
                 case $this::$Insert:
                 case $this::$UpdateById:
+                case $this::$DeleteById:
                     $this->Response = 1;
                     break;
                 default:
@@ -53,7 +53,8 @@ class moUtilisateur extends bdd
         } catch (PDOException $e) {
             $this->rollbackTrans();
             $Msg = $this->errorMsg($e);
-            return $this->ResponseError;
+            echo $Msg
+;            return $this->ResponseError;
         }
     }
 }
