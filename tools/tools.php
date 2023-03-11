@@ -6,10 +6,7 @@
  * Time: 20:00
  */
 
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 
-require __DIR__ . '/../vendor/autoload.php';
 /*use Monolog\Logger;
 use Monolog\Handler\StreamHandler;*/
 // create a log channel
@@ -21,10 +18,8 @@ session_cache_expire(10);
 session_start();
 /* session_unset();
 session_destroy(); */
-require_once('../vendor/autoload.php');
 
-const SECRET_KEY = 'eWlHKke1Xf8bxsZbZI1b+Khk+8AHa66mxEOARrPLaez924M46roIp10hnfJ69zPJ2JcJlsDLK+tJYoHp3xf4KA==';  // secret key can be a random string and keep in secret from anyone
-const ALGORITHM = 'HS384';
+
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS");
@@ -197,17 +192,6 @@ class tools
             //print_r($annee);
             return $annee . '-' . $mois . '-' .$jour.' '.$dateHeure;
         }
-    }
-    // Gestion du token
-    public static function tokenManager() : stdClass {
-        $header_Response = apache_request_headers();
-        // var_dump($header_Response);
-        $authHeader = $header_Response['authorization'];
-        $temp_header = explode(" ", $authHeader);
-        $jwt = $temp_header[1];
-        JWT::$leeway = 10;
-        $decoded = JWT::decode($jwt, new Key(SECRET_KEY, ALGORITHM));
-        return $decoded->data;
     }
 }
 

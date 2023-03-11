@@ -1,17 +1,15 @@
 <?php
 include 'bdd.php';
-class moUtilisateurAdmin extends bdd
+class moUtilisateur extends bdd
 {
-    public function crudUtilisateurAdmin(UtilisateurAdmin $utilisateurAdmin)
+    public function crudUtilisateur(Utilisateur $utilisateur)
     {
-        //print_r($utilisateurAdmin);
-        $this->Query = 'CALL ps_AdminUtilisateur(
-                                        :utilisateurAdminId,
+
+        $this->Query = 'CALL ps_Utilisateur(
+                                        :utlisateurId,
                                         :nom,
                                         :prenom,
-                                        :contact,
-                                        :email,
-                                        :role,
+                                        :noDeTelephone,
                                         :createdBy,
                                         :action )';
         try {
@@ -20,20 +18,17 @@ class moUtilisateurAdmin extends bdd
             $this->beginTrans();
 
             $PDOprepare = $this->prepareQuery();
-
+           //  print_r($utilisateur);
             $PDOprepare->execute(array(
-                    'utilisateurAdminId' => $utilisateurAdmin->getUtilisateurAdminId(),
-                    'nom'   => $utilisateurAdmin->getNom(),
-                    'prenom'   => $utilisateurAdmin->getPrenom(),
-                    'contact'   => $utilisateurAdmin->getContact(),
-                    'email'   => $utilisateurAdmin->getEmail(),
-                    'role'   => $utilisateurAdmin->getRole(),
-                    'createdBy'   => $utilisateurAdmin->getCreatedBy(),
-                    'action'    => $utilisateurAdmin->getAction()
+                    'utlisateurId' => $utilisateur->getUtilisateurId(),
+                    'nom' => $utilisateur->getNom(),
+                    'prenom' => $utilisateur->getPrenom(),
+                    'noDeTelephone' => $utilisateur->getNoDeTelephone(),
+                    'createdBy' => $utilisateur->getCreatedBy(),
+                    'action' => $utilisateur->getAction()
                 )
             );
-
-            switch ($utilisateurAdmin->getAction()) {
+            switch ($utilisateur->getAction()) {
                 case $this::$SelectAll :
                     $this->Response = $PDOprepare->fetchAll();
                     break;
@@ -57,9 +52,7 @@ class moUtilisateurAdmin extends bdd
             return $this->Response;
         } catch (PDOException $e) {
             $this->rollbackTrans();
-
             $Msg = $this->errorMsg($e);
-
             return $this->ResponseError;
         }
     }
