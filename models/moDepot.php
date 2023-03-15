@@ -1,13 +1,14 @@
 <?php
 include 'bdd.php';
-class moCategorieDepense extends bdd
+class moDepot extends bdd
 {
-    public function crudCategorieDepense(CategorieDepense $CategorieDepense)
+    public function crudDepot(Depot $depot)
     {
-        $this->Query = 'CALL ps_categorie_depense(
-                                        :CategorieDepenseId,
-                                        :libelle,
-                                        :description,
+        $this->Query = 'CALL ps_Depot(
+                                        :depotId,
+                                        :montant,
+                                        :dateDepot,
+                                        :objectifId,
                                         :createdBy,
                                         :action )';
         try {
@@ -18,15 +19,16 @@ class moCategorieDepense extends bdd
             $PDOprepare = $this->prepareQuery();
 
             $PDOprepare->execute(array(
-                    'CategorieDepenseId' => $CategorieDepense->getCategorieDepenseId(),
-                    'libelle' => $CategorieDepense->getLibelle(),
-                    'description' =>$CategorieDepense->getDescription(),
-                    'createdBy' => $CategorieDepense->getCreatedBy(),
-                    'action' => $CategorieDepense->getAction(),
+                    'depotId' => $depot->getDepotId(),
+                    'montant' => $depot->getMontant(),
+                    'dateDepot' => $depot->getdateDepot(),
+                    'objectifId' => $depot->getobjectifsId(),
+                    'createdBy' => $depot->getCreatedBy(),
+                    'action' => $depot->getAction()
                 )
             );
 
-            switch ($CategorieDepense->getAction()) {
+            switch ($depot->getAction()) {
                 case $this::$SelectAll :
                     $this->Response = $PDOprepare->fetchAll();
                     break;
@@ -51,10 +53,8 @@ class moCategorieDepense extends bdd
         } catch (PDOException $e) {
             $this->rollbackTrans();
             $Msg = $this->errorMsg($e);
-            echo $Msg
-            ;            return $this->ResponseError;
+            echo $Msg;
+            return $this->ResponseError;
         }
     }
-
-
 }

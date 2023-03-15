@@ -1,13 +1,14 @@
 <?php
 include 'bdd.php';
-class moCategorieDepense extends bdd
+class moObjectif extends bdd
 {
-    public function crudCategorieDepense(CategorieDepense $CategorieDepense)
+    public function crudObjectif(objectif $objectif)
     {
-        $this->Query = 'CALL ps_categorie_depense(
-                                        :CategorieDepenseId,
+        $this->Query = 'CALL ps_Objectif(
+                                        :objectifsId,
                                         :libelle,
-                                        :description,
+                                        :montant,
+                                        :utilisateurId,
                                         :createdBy,
                                         :action )';
         try {
@@ -18,15 +19,16 @@ class moCategorieDepense extends bdd
             $PDOprepare = $this->prepareQuery();
 
             $PDOprepare->execute(array(
-                    'CategorieDepenseId' => $CategorieDepense->getCategorieDepenseId(),
-                    'libelle' => $CategorieDepense->getLibelle(),
-                    'description' =>$CategorieDepense->getDescription(),
-                    'createdBy' => $CategorieDepense->getCreatedBy(),
-                    'action' => $CategorieDepense->getAction(),
+                    'objectifsId' => $objectif->getObjectifsId(),
+                    'libelle' =>  $objectif->getLibelle(),
+                    'montant' => $objectif->getMontant(),
+                    'utilisateurId' =>$objectif->getUtilisateurId(),
+                    'createdBy' =>$objectif->getCreatedBy(),
+                    'action' =>  $objectif->getAction()
                 )
             );
 
-            switch ($CategorieDepense->getAction()) {
+            switch ( $objectif->getAction()) {
                 case $this::$SelectAll :
                     $this->Response = $PDOprepare->fetchAll();
                     break;
@@ -55,6 +57,4 @@ class moCategorieDepense extends bdd
             ;            return $this->ResponseError;
         }
     }
-
-
 }

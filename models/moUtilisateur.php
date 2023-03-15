@@ -22,7 +22,7 @@ class moUtilisateur extends bdd
                     'utilisateurId' => $utilisateur->getUtilisateurId(),
                     'nom' => $utilisateur->getNom(),
                     'prenom' => $utilisateur->getPrenom(),
-                    'noDeTelephone' => $utilisateur->getNoDeTelephone(),
+                    'contact' => $utilisateur->getContact(),
                     'createdBy' => $utilisateur->getCreatedBy(),
                     'action' => $utilisateur->getAction()
                 )

@@ -1,13 +1,15 @@
 <?php
 include 'bdd.php';
-class moCategorieDepense extends bdd
+class moDepense extends bdd
 {
-    public function crudCategorieDepense(CategorieDepense $CategorieDepense)
+    public function crudDepense (Depense $Depense)
     {
-        $this->Query = 'CALL ps_categorie_depense(
-                                        :CategorieDepenseId,
+        $this->Query = 'CALL ps_Depense(
+                                        :depenseId,
                                         :libelle,
-                                        :description,
+                                        :montant,
+                                        :utilisateurId,
+                                        :categorieDepenseId,
                                         :createdBy,
                                         :action )';
         try {
@@ -18,15 +20,17 @@ class moCategorieDepense extends bdd
             $PDOprepare = $this->prepareQuery();
 
             $PDOprepare->execute(array(
-                    'CategorieDepenseId' => $CategorieDepense->getCategorieDepenseId(),
-                    'libelle' => $CategorieDepense->getLibelle(),
-                    'description' =>$CategorieDepense->getDescription(),
-                    'createdBy' => $CategorieDepense->getCreatedBy(),
-                    'action' => $CategorieDepense->getAction(),
+                    'depenseId' => $Depense->getDepenseId(),
+                    'libelle' => $Depense->getlibelle(),
+                    'montant' =>$Depense->getmontant(),
+                    'utilisateurId' =>$Depense->getutilisateurId(),
+                    'categorieDepenseId' =>$Depense->getCategorieDepenseId(),
+                    'createdBy' => $Depense->getCreatedBy(),
+                    'action' => $Depense->getAction()
                 )
             );
 
-            switch ($CategorieDepense->getAction()) {
+            switch ($Depense->getAction()) {
                 case $this::$SelectAll :
                     $this->Response = $PDOprepare->fetchAll();
                     break;
@@ -55,6 +59,4 @@ class moCategorieDepense extends bdd
             ;            return $this->ResponseError;
         }
     }
-
-
 }

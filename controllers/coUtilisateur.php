@@ -20,13 +20,13 @@ if ($_REQUEST_METHOD == 'POST') {
         if (
             isset($_REQUEST['nom']) && !empty($_REQUEST['nom']) &&
             isset($_REQUEST['prenom']) && !empty($_REQUEST['prenom']) &&
-            isset($_REQUEST['noDeTelephone']) && !empty($_REQUEST['noDeTelephone']) &&
+            isset($_REQUEST['contact']) && !empty($_REQUEST['contact']) &&
            isset($_REQUEST['createdBy']) && !empty($_REQUEST['createdBy'])
         ) {
             $_Utilisateur -> setUtilisateurId(isset($_REQUEST['utilisateurId']) && !empty($_REQUEST['utilisateurId']) && $_REQUEST['utilisateurId'] != 'undefined' && $_REQUEST['utilisateurId'] != 'null' ? $_REQUEST['utilisateurId'] : $tools::generateGuid());
             $_Utilisateur->setNom($_REQUEST['nom']);
             $_Utilisateur->setPrenom($_REQUEST['prenom']);
-            $_Utilisateur->setNoDeTelephone($_REQUEST['noDeTelephone']);
+            $_Utilisateur->setContact($_REQUEST['contact']);
             $_Utilisateur->setCreatedBy($_REQUEST['createdBy']);;
             $_Utilisateur->setAction($_REQUEST_ACTION);
             //Insertion en base

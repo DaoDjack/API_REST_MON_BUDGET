@@ -15,7 +15,7 @@ class bdd extends Action
     private $host = 'localhost';
     private $userName = 'geeksquad';
     private $userPass = '';
-    protected $dbName = 'gestion_budget_bd';
+    protected $dbName = 'gestion_budget_1_bd';
 
     private $dns;
     protected $connexion;
@@ -48,17 +48,8 @@ class bdd extends Action
     }
 
     // Mise à jour des parametre de connexion
-    private function setDataBaseInfo()
-    {
-        //print_r($this->_REQUEST_BDENAME);
-        if (!isset($this->_REQUEST_BDENAME) || (isset($this->_REQUEST_BDENAME) && empty($this->_REQUEST_BDENAME))) {
-            $this->dbName = 'gestion_budget_bd';
-            return;
-        }
-        // Récuperation des informations de la base primare suivant la clé
-        $this->dbName = !empty($this->_REQUEST_BDENAME) ? $this->_REQUEST_BDENAME : 'teliya_Emptybd';
 
-    }
+
 
     public function beginTrans()
     {

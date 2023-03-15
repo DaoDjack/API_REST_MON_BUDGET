@@ -4,15 +4,15 @@ include 'messageError.php';
 
 class Utilisateur extends messageError
 {
-private $utilisateurId;
-private $nom;
-private $prenom;
-private $noDeTelephone;
-private $createdBy;
-private $action;
+    private $utilisateurId;
+    private $nom;
+    private $prenom;
+    private $contact;
+    private $createdBy;
+    private $action;
 
-public function __construct()
-  {
+    public function __construct()
+    {
     }
 
     /**
@@ -25,10 +25,12 @@ public function __construct()
 
     /**
      * @param mixed $utilisateurId
+     * @return Utilisateur
      */
-    public function setUtilisateurId($utilisateurId): void
+    public function setUtilisateurId($utilisateurId)
     {
         $this->utilisateurId = $utilisateurId;
+        return $this;
     }
 
     /**
@@ -41,10 +43,12 @@ public function __construct()
 
     /**
      * @param mixed $nom
+     * @return Utilisateur
      */
-    public function setNom($nom): void
+    public function setNom($nom)
     {
         $this->nom = $nom;
+        return $this;
     }
 
     /**
@@ -57,26 +61,30 @@ public function __construct()
 
     /**
      * @param mixed $prenom
+     * @return Utilisateur
      */
-    public function setPrenom($prenom): void
+    public function setPrenom($prenom)
     {
         $this->prenom = $prenom;
+        return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getNoDeTelephone()
+    public function getContact()
     {
-        return $this->noDeTelephone;
+        return $this->contact;
     }
 
     /**
-     * @param mixed $noDeTelephone
+     * @param mixed $contact
+     * @return Utilisateur
      */
-    public function setNoDeTelephone($noDeTelephone): void
+    public function setContact($contact)
     {
-        $this->noDeTelephone = $noDeTelephone;
+        $this->contact = $contact;
+        return $this;
     }
 
     /**
@@ -89,10 +97,12 @@ public function __construct()
 
     /**
      * @param mixed $createdBy
+     * @return Utilisateur
      */
-    public function setCreatedBy($createdBy): void
+    public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
+        return $this;
     }
 
     /**
@@ -105,13 +115,15 @@ public function __construct()
 
     /**
      * @param mixed $action
+     * @return Utilisateur
      */
-    public function setAction($action): void
+    public function setAction($action)
     {
         $this->action = $action;
+        return $this;
     }
 
 
-
-
 }
+
+
